@@ -7,8 +7,7 @@
 				text-align: center;
 				height: 265px;
 				width: 200px;
-				border: 8px;
-				solid: #000;
+				border: 8px solid #000;
 				border-radius: 5%;
 				box-shadow: 10px 10px 30px gray;
 			}
@@ -38,16 +37,16 @@
 	</head>
 	<body>
 		<div class="frame1">
-			<h1 id="total">0.00</h1>
-			<br>
-		Number 1: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="txt2" size="4">
+		<h1 id="total">0.00</h1>
+		<br>
+		Number 1: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="txt1" size="4">
 		<br><br>
-		Number 2: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="txt1" size="4">
+		Number 2: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="txt2" size="4">
 		<br><br><br>
-		<input type="radio" name="calc" value="*" checked>*</input>&nbsp&nbsp
-		<input type="radio" name="calc" value="/">/<input>&nbsp&nbsp
-		<input type="radio name="calc" value="+">+</input>&nbsp&nbsp
-		<input type="radio name="calc" value="-">-</input>&nbsp&nbsp
+		<input type="radio" name="calc" value="*"  checked> *</input>&nbsp&nbsp
+		<input type="radio" name="calc" value="/"> /</input>&nbsp&nbsp
+		<input type="radio" name="calc" value="+"> +</input>&nbsp&nbsp
+		<input type="radio" name="calc" value="-"> -</input>&nbsp&nbsp
 		<br><br>
 		<button type="button" onclick="Calc();">Calculate</button>
 		<button type="button" onclick="Clear();">Clear</button>
@@ -59,22 +58,29 @@
 			var total = document.getElementById("total");
 			
 			function Calc() {
-				var result = document.querySelector('input[name="calc"]:checked').value //checked?
+				var result = document.querySelector('input[name="calc"]:checked').value; //checked?
 				var num1 = parseInt(txt1.value); console.log(typeof num1); console.log(isNaN(num1));
 				var num2 = parseInt(txt2.value); console.log(typeof num2); console.log(isNaN(num2));
 				
 				if (result == "*") {
-					total.innerHTML = (num1 * num2).toFixe(2);
+					total.innerHTML = (num1 * num2).toFixed(2);
 				}
-				else if (result == "/") 
-					total.innerHTML = (num1 / num2).toFixed(2);
+				else if (result == "/") {
+					total.innerHTML = (num1 / num2).toFixed(2); //precise to the tenths place
 				}
 				else if (result == "+") {
 					total.innerHTML = (num1 + num2).toFixed(2);
 				}
-				else
+				else if (result == "-"){
 					total.innerHTML = (num1 - num2).toFixed(2);
-			}
+				}
+			};
+			
+			function Clear() {
+				txt1.value=""; 
+				txt2.value="";
+				total.innerHTML = "0.00"; //reset fields
+			};
 		</script>
 	</body>
 </html>
