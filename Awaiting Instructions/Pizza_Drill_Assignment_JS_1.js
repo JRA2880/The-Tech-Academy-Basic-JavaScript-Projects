@@ -1,0 +1,193 @@
+/* Programmer: John R. Adams
+   Date: 05/25/2019
+   Program Purpose: Javascript code to tally pizza order and to write to DOM the receipt. 
+*/
+	
+	//Beging getReceipt Function
+	function getReceipt() {
+	// This initializes our string so it can get passed from  
+	// function to function, growing line by line into a full receipt
+	//There needs to be a var text1 and a var text2.  This way more than one text for the receipt can be stored and called upon.
+	var text1 = ""; //Set the var text1 to an empty string so that it can be written to later on in the JavaScript code.
+	var text2 = ""; //Set the var text2 to an empty string so that it can be written to later on in the JavaScript code.
+	var runningTotal = 0;
+	var sizeTotal = 0;
+	var sizeArray = document.getElementsByClassName("size");
+	for (var i = 0; i < sizeArray.length; i++) {
+		if (sizeArray[i].checked) {
+			var selectedSize = sizeArray[i].value;
+			text1 = text1 + selectedSize + "<br>";
+		}
+	}
+	if (selectedSize === "Personal Pizza") {
+		sizeTotal = 6;
+		text2 = text2 + sizeTotal + "<br>";
+	} 
+	else if (selectedSize === "Medium Pizza") {
+		sizeTotal = 10;
+		text2 = text2 + sizeTotal + "<br>";
+	} 
+	else if (selectedSize === "Large Pizza") {
+		sizeTotal = 14;
+		text2 = text2 + sizeTotal + "<br>";
+	} 
+	else if (selectedSize === "Extra Large Pizza") {
+		sizeTotal = 16;
+		text2 = text2 + sizeTotal + "<br>";
+	}
+	runningTotal = sizeTotal;
+	getMeat(runningTotal,text1,text2); // All three of these variables will be passed on to each function
+	};
+// End getReceipt Function
+
+// With both the meat and veggie functions each item in the array will be
+// 1 dollar but the first is going to be free so we can count the total
+// of items in their array and subtract 1 to get the total item cost
+//
+// Now we can add the item cost to our running total to get the new
+// running total and then pass this new running total to the next function
+// Just keep up this process until we've added all items to the running total
+// Also have to pass text2 parameter to the function to be stored in function to allow the function change to work.
+
+
+	//Begin getMeat function
+	function getMeat(runningTotal,text1,text2) {
+		var meatTotal = 0;
+		var selectedMeat = [];
+		var meatArray = document.getElementsByClassName("meats");
+		for (var j = 0; j < meatArray.length; j++) {
+			if (meatArray[j].checked) {
+				selectedMeat.push(meatArray[j].value);
+			}
+		}
+		var meatCount = selectedMeat.length;
+		if (meatCount > 1) {
+			meatTotal = (meatCount - 1);
+		} else {
+			meatTotal = 0;
+		}
+		runningTotal = (runningTotal + meatTotal);
+		
+		for (var k = 0; k < selectedMeat.length; k++){
+			text1 = text1 + selectedMeat[k] + "<br>";
+			if (meatCount <= 1) {
+				text2 = text2 + 0 + "<br>";
+				meatCount = meatCount - 1;
+			}
+			else if (meatCount == 2) {
+				text2 = text2 + 1 + "<br>";
+				meatCount = meatCount - 1;
+			}
+			else {
+				text2 = text2 + 1 + "<br>";
+				meatCount = meatCount - 1;
+			}
+		}
+		getVeggie(runningTotal,text1,text2);
+	};
+	//End getMeat Function
+
+	//Begin getVeggie Function
+	function getVeggie(runningTotal,text1,text2){
+		var veggieTotal = 0;
+		var selectedVeggies = [];
+		var veggieArray = document.getElementsByClassName("veggies");
+		for ( var l = 0; l < veggieArray.length; l++) {
+			if(veggieArray[l].checked){
+				selectedVeggies.push(veggieArray[l].value);
+			}	 
+		}
+		var veggieCount = selectedVeggies.length;
+		if (veggieCount >= 2) {
+			veggieTotal = (veggieCount - 1);
+		}
+		else {
+			veggieTotal = 0;
+		 }
+        runningTotal = runningTotal + veggieTotal;		 
+		for (var m = 0; m < veggieArray.length; m++){
+			text1 = text1 + selectedVeggies[m] + "<br>";
+			if (veggieCount <= 1) {
+				text2 = text2 + 0 + "<br>";
+				veggieCount = veggieCount - 1;
+			}
+			else if (veggieCount == 2) {
+				text2 = text2 + 1 + "<br>";
+				veggieCount = veggieCount - 1;
+			}
+			else {
+				text2 = text2 + 1 + "<br>";
+				veggieCount = veggieCount - 1;
+			}
+		}
+	getCheese(runningTotal,text1,text2);
+	};
+	//End getVeggies Function
+	
+	//Begin getCheese Function
+	function getCheese(runningTotal,text1,text2){
+	var CheeseTotal = 0;
+	var selectedCheese;
+		var cheeseArray = document.getElementsByClassName("cheese");
+		for (var n = 0; n < cheeseArray.length; n++){
+			if(cheeseArray[n].checked){
+				selectedCheese = cheeseArray[n].value;
+			}
+		}
+		if (selectedCheese === "Extra Cheese") {
+			cheeseTotal = 3;
+		}
+		 else {
+			cheeseTotal = 0;
+		 }
+		runningTotal = (runningTotal + cheeseTotal);
+	    text2 = text2 + cheeseTotal + "<br>";
+		text1 = text1 + selectedCheese + "<br>";
+		getSauce(runningTotal,text1,text2);
+	};
+	//End getExtraCheese Function
+
+	//Begin getSauce Function
+	function getSauce(runningTotal,text1,text2) {
+		var sauceArray = document.getElementsByClassName("sauce");
+			for ( var o = 0; o < sauceArray.length; o++) {
+				if (sauceArray[o].checked) {
+					var selectedSauce = sauceArray[o].value;
+					text1 + text1 + selectedSauce + "<br>";
+				}
+			}
+		text2 = text2 + 0 + "<br>";
+		getCrust(runningTotal,text1,text2);
+	};
+
+	//Begin getCrust Function
+	function getCrust(runningTotal,text1,text2) {
+	var CrustTotal = 0;
+      var selectedCrust;
+		var crustArray = document.getElementsByClassName("crust");
+			for ( var p = 0; p < crustArray.length; p++) {
+				if(crustArray[p].checked) {
+					selectedCrust = crustArray[p].value;
+					text1 = text1 + selectedCrust + "<br>";
+				}
+			}
+		if (selectedCrust === "Cheese Stuffed Crust") {
+			crustTotal = 3;
+		}
+		else {
+			crustTotal = 0;
+		}
+	runningTotal = runningTotal + crustTotal;
+	text2 = text2 + crustTotal + "<br>";
+	document.getElementById("cart").style.opacity = 1;
+	document.getElementById("showText1").innerHTML = text1;
+	document.getElementById("showText2").innerHTML = text2;
+	document.getElementById("totalPrice2").innerHTML = "<h3>$" + runningTotal + ".00" + "</h3>";
+	};
+	
+	// This code clears the form selections to their defaults and then sets the 
+	// corresponding div's CSS opacity to 0, effectively hiding it from view.
+	function clearAll() {
+		document.getElementById("frmMenu").reset();
+		document.getElementById("cart").style.opacity=0;
+	};
