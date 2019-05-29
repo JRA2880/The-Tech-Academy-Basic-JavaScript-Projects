@@ -12,10 +12,11 @@
 	var text2 = ""; //Set the var text2 to an empty string so that it can be written to later on in the JavaScript code.
 	var runningTotal = 0;
 	var sizeTotal = 0;
+	var selectedSize =[];
 	var sizeArray = document.getElementsByClassName("size");
 	for (var i = 0; i < sizeArray.length; i++) {
 		if (sizeArray[i].checked) {
-			var selectedSize = sizeArray[i].value;
+			selectedSize = sizeArray[i].value;
 			text1 = text1 + selectedSize + "<br>";
 		}
 	}
@@ -125,26 +126,23 @@
 	//End getVeggies Function
 	
 	//Begin getCheese Function
-	function getCheese(runningTotal,text1,text2){
-	var CheeseTotal = 0;
-	var selectedCheese;
-		var cheeseArray = document.getElementsByClassName("cheese");
-		for (var n = 0; n < cheeseArray.length; n++){
-			if(cheeseArray[n].checked){
-				selectedCheese = cheeseArray[n].value;
-			}
+function getCheese(runningTotal,text1,text2) {
+	var cheeseTotal = 0;
+	var selectedCheese = [];
+	var cheeseArray = document.getElementsByClassName("cheese");
+	for (var j = 0; j < cheeseArray.length; j++) {
+		if (cheeseArray[j].checked) {
+			selectedCheese = cheeseArray[j].value;
 		}
-		if (selectedCheese === "Extra Cheese") {
+		if (selectedCheese === "Extra cheese") {
 			cheeseTotal = 3;
 		}
-		 else {
-			cheeseTotal = 0;
-		 }
-		runningTotal = (runningTotal + cheeseTotal);
-	    text2 = text2 + cheeseTotal + "<br>";
-		text1 = text1 + selectedCheese + "<br>";
-		getSauce(runningTotal,text1,text2);
-	};
+	}
+	text2 = text2 +cheeseTotal +  "<br>";
+	text1 = text1 + selectedCheese + "<br>";
+	runningTotal = (runningTotal + cheeseTotal);
+	getSauce(runningTotal,text1,text2);
+};
 	//End getExtraCheese Function
 
 	//Begin getSauce Function
@@ -153,7 +151,7 @@
 			for ( var o = 0; o < sauceArray.length; o++) {
 				if (sauceArray[o].checked) {
 					var selectedSauce = sauceArray[o].value;
-					text1 + text1 + selectedSauce + "<br>";
+					text1 = text1 + selectedSauce + "<br>";
 				}
 			}
 		text2 = text2 + 0 + "<br>";
